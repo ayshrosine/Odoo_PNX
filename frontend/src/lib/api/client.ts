@@ -6,8 +6,13 @@ import axios, {
 import type { ApiEnvelope, ApiErrorBody, Paginated } from './types';
 import { useAuthStore } from '@/stores/auth-store';
 
-export const API_BASE_URL =
+const rawBaseUrl =
   process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000/api/v1';
+
+export const API_BASE_URL =
+  rawBaseUrl.startsWith('http://') || rawBaseUrl.startsWith('https://') || rawBaseUrl.startsWith('/')
+    ? rawBaseUrl
+    : `https://${rawBaseUrl}`;
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
