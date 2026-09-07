@@ -25,7 +25,11 @@ zerops:
         # and `npm ci` aborts. `npm install` still honours the lock for every
         # version it can, and resolves that one conflict for whichever npm the
         # build image ships.
-        - cd backend && npm install --no-audit --no-fund
+        #
+        # --ignore-scripts=false ensures install/postinstall scripts run
+        # (argon2, prisma, etc.) even if npm's allow-scripts gate is active.
+        # PUPPETEER_SKIP_DOWNLOAD avoids downloading Chromium on the build server.
+        - cd backend && PUPPETEER_SKIP_DOWNLOAD=true npm install --no-audit --no-fund --ignore-scripts=false
         # The Prisma client is generated from the schema, so it must be built
         # before the TypeScript compile that imports its types.
         - cd backend && npx prisma generate
