@@ -102,6 +102,7 @@
     "@sentry/profiling-node": true,
     "@sentry/node-cpu-profiler": true,
     "msgpackr-extract": true,
-    "oxlint": true
+    "oxlint": true,
+    "@scarf/scarf": false
   }
 }
